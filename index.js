@@ -2,11 +2,12 @@ const mongoose = require("mongoose");
 const express = require("express");
 
 const PORT = process.env.PORT || 3030;
+const CONNECTION = process.env.MONGODB_URI || "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.2hx98.mongodb.net/flores_tamba?retryWrites=true&w=majority";
 const app = express();
 
 const todoRoutes = require("./routes/todoRoutes");
 
-mongoose.connect("mongodb+srv://m001-student:m001-mongodb-basics@sandbox.2hx98.mongodb.net/flores_tamba?retryWrites=true&w=majority")
+mongoose.connect(CONNECTION)
   .then(() => console.log("Connected successfully"))
   .catch((err) => console.log(err));
 

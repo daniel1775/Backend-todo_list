@@ -2,7 +2,7 @@ const router = require("express").Router();
 const Todo = require("../models/todo");
 const { ObjectId } = require('mongodb');
 
-router.get("/search/all", async (req, res) => {
+router.get("/search-all", async (req, res) => {
   try {
     const resul = await Todo.find({deleted: false});
     res.json(resul);
