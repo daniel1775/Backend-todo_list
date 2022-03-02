@@ -1,20 +1,19 @@
 const router = require("express").Router();
 const Todo = require("../models/todo");
-const Record = require("../models/record");
 const { ObjectId } = require('mongodb');
 
-router.get("/search_all", async (req, res) => {
+router.get("/search/all", async (req, res) => {
   try {
-    const resul = await Todo.find();
+    const resul = await Todo.find({deleted: false});
     res.json(resul);
   } catch (error) {
     res.status(500).send(error);
   }
 });
 
-router.get("/record", async (req, res) => {
+router.get("/search/:title", async (req, res) => {
   try {
-    const resul = await Record.find();
+    const resul = await Todo.findOne({title: req.params['title']});
     res.json(resul);
   } catch (err) {
     res.status(500).send(err);
@@ -30,12 +29,19 @@ router.post("/create", async (req, res) => {
   }
 });
 
-router.put("/update:id", async (req, res) => {
-  //const resul = await Todo.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true });
-  const id = ObjectId(req.params.id);
-  const resul = await Todo.findOneAndUpdate({ _id: id}, req.body, {new: true});
+router.put("/update/:id", async (req, res) => {
   try {
-    res.send(resul);
+    const id = new ObjectId(req.params['id']);
+    const resul = await Todo.findOneAndUpdate({ _id: id }, req.body, { new: true });
+  }catch (err){
+    res.status(500).send(err);
+  }
+});
+
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const id = new ObjectId(req.params['id']);
+    const resul = await Todo.findOneAndUpdate({ _id: id }, {deleted: true}, { new: true });
   }catch (err){
     res.status(500).send(err);
   }
