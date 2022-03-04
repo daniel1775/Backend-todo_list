@@ -11,6 +11,24 @@ router.get("/search-all", async (req, res) => {
   }
 });
 
+router.get("/search-completed", async (req, res) => {
+  try {
+    const resul = await Todo.find({completed: true});
+    res.json(resul);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+router.get("/search-deleted", async (req, res) => {
+  try {
+    const resul = await Todo.find({deleted: true});
+    res.json(resul);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 router.get("/search/:title", async (req, res) => {
   try {
     const resul = await Todo.findOne({title: req.params['title']});
