@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Todo = require("../models/todo");
 const { ObjectId } = require('mongodb');
+const res = require("express/lib/response");
 
 router.get("/search-all", async (req, res) => {
   try {
@@ -42,6 +43,17 @@ router.delete("/delete/:id", async (req, res) => {
   try {
     const id = new ObjectId(req.params['id']);
     const resul = await Todo.findOneAndUpdate({ _id: id }, {deleted: true}, { new: true });
+    res.send("completed");
+  }catch (err){
+    res.status(500).send(err);
+  }
+});
+
+router.delete("/finalized/:id", async () => {
+  try{
+    const id = new ObjectId(req.params['id']);
+    const resul = await Todo.findOneAndUpdate({_id: id}, {completed: true}, {new: true});
+    res.send("completed");
   }catch (err){
     res.status(500).send(err);
   }
