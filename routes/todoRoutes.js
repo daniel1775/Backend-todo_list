@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const Todo = require("../models/todo");
 const { ObjectId } = require('mongodb');
-const res = require("express/lib/response");
 
 router.get("/search-all", async (req, res) => {
   try {
