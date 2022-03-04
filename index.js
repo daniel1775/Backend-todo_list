@@ -1,5 +1,9 @@
+// Here we create a server with express and mongoose
+
 const mongoose = require("mongoose");
 const express = require("express");
+
+// The connection to the Database is made in mongo db
 
 const PORT = process.env.PORT || 3030;
 const CONNECTION = process.env.MONGODB_URI || "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.2hx98.mongodb.net/flores_tamba?retryWrites=true&w=majority";
@@ -10,9 +14,11 @@ const todoRoutes = require("./routes/todoRoutes");
 mongoose.connect(CONNECTION)
   .then(() => console.log("Connected successfully"))
   .catch((err) => console.log(err));
-
+//Routes
 app.use(express.json());
 app.use("/todos", todoRoutes);
+
+// Here we will listen to the Express server
 
 app.listen(PORT, () => {
   console.log("The server is listening on port "+ PORT);

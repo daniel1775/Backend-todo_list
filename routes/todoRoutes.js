@@ -1,7 +1,12 @@
+// creation of constants
+
 const router = require("express").Router();
 const Todo = require("../models/todo");
 const { ObjectId } = require('mongodb');
 
+// Here are the routes of the app
+
+// Here we create the route to bring all the documents
 router.get("/search-all", async (req, res) => {
   try {
     const resul = await Todo.find({deleted: false});
@@ -10,7 +15,7 @@ router.get("/search-all", async (req, res) => {
     res.status(500).send(error);
   }
 });
-
+// Here we create the route to filter by title
 router.get("/search/:title", async (req, res) => {
   try {
     const resul = await Todo.findOne({title: req.params['title']});
@@ -19,7 +24,7 @@ router.get("/search/:title", async (req, res) => {
     res.status(500).send(err);
   }
 });
-
+// Here we are going to transport the data to the database
 router.post("/create", async (req, res) => {
   try {
     const resul = await Todo.create(req.body);
@@ -28,7 +33,7 @@ router.post("/create", async (req, res) => {
     res.status(500).send(err);
   }
 });
-
+ // Here we create the route to update by id
 router.put("/update/:id", async (req, res) => {
   try {
     const id = new ObjectId(req.params['id']);
@@ -37,7 +42,7 @@ router.put("/update/:id", async (req, res) => {
     res.status(500).send(err);
   }
 });
-
+ // Here we create the delete route by id
 router.delete("/delete/:id", async (req, res) => {
   try {
     const id = new ObjectId(req.params['id']);
