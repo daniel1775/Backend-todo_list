@@ -12,9 +12,10 @@ mongoose.connect(CONNECTION)
   .then(() => console.log("Connected successfully"))
   .catch((err) => console.log(err));
 
+app.use(cors());
 app.use(express.json());
 app.use("/todos", todoRoutes);
-app.use(cors());
+
 
 app.listen(PORT, () => {
   console.log("The server is listening on port "+ PORT);
