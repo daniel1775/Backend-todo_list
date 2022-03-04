@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const express = require("express");
+const cors = require('cors');
 
 const PORT = process.env.PORT || 3030;
 const CONNECTION = process.env.MONGODB_URI || "mongodb+srv://m001-student:m001-mongodb-basics@sandbox.2hx98.mongodb.net/flores_tamba?retryWrites=true&w=majority";
@@ -13,6 +14,7 @@ mongoose.connect(CONNECTION)
 
 app.use(express.json());
 app.use("/todos", todoRoutes);
+app.use(cors());
 
 app.listen(PORT, () => {
   console.log("The server is listening on port "+ PORT);
