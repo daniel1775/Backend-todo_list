@@ -15,7 +15,9 @@ mongoose.connect(CONNECTION)
 app.use(cors());
 app.use(express.json());
 app.use("/todos", todoRoutes);
-
+app.get('/', (req, res) => {
+  res.send("GET Request Called")
+})
 
 app.listen(PORT, () => {
   console.log("The server is listening on port "+ PORT);
