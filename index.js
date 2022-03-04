@@ -2,6 +2,7 @@
 
 const mongoose = require("mongoose");
 const express = require("express");
+const cors = require('cors');
 
 // The connection to the Database is made in mongo db
 
@@ -14,11 +15,11 @@ const todoRoutes = require("./routes/todoRoutes");
 mongoose.connect(CONNECTION)
   .then(() => console.log("Connected successfully"))
   .catch((err) => console.log(err));
-//Routes
-app.use(express.json());
-app.use("/todos", todoRoutes);
 
 // Here we will listen to the Express server
+app.use(cors());
+app.use(express.json());
+app.use("/todos", todoRoutes);
 
 app.listen(PORT, () => {
   console.log("The server is listening on port "+ PORT);
